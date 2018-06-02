@@ -11,7 +11,12 @@ Param (
         HelpMessage = "Array of image file names to convert to JPEG")]
     [Alias("FullName")]
     [String[]]
-    $Files
+    $Files,
+
+    [Parameter(
+        HelpMessage = "Fix extension of JPEG files without the .jpg extension")]
+    [Switch]
+    $FixExtensionIfJpeg
 )
 
 Begin
@@ -63,8 +68,19 @@ Process
             }
             if ($decoder.DecoderInformation.CodecId -eq [Windows.Graphics.Imaging.BitmapDecoder]::JpegDecoderId)
             {
-                # Skip JPEG-encoded files
-                Write-Host " [Already JPEG]"
+                $extension = $inputFile.FileType
+                if ($FixExtensionIfJpeg -and ($extension -ne ".jpg") -and ($extension -ne ".jpeg"))
+                {
+                    # Rename JPEG-encoded files to have ".jpg" extension
+                    $newName = $inputFile.Name -replace ($extension + "$"), ".jpg"
+                    AwaitAction ($inputFile.RenameAsync($newName))
+                    Write-Host " => $newName"
+                }
+                else
+                {
+                    # Skip JPEG-encoded files
+                    Write-Host " [Already JPEG]"
+                }
                 continue
             }
             $bitmap = AwaitOperation ($decoder.GetSoftwareBitmapAsync()) ([Windows.Graphics.Imaging.SoftwareBitmap])

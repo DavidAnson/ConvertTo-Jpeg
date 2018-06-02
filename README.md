@@ -13,6 +13,8 @@ To easily view, edit, or share pictures, it can be handy to convert RAW images t
 
 ## Examples
 
+### Converting Files
+
 Passing parameters:
 
 ```PowerShell
@@ -37,6 +39,18 @@ Pipeline via `Get-ChildItem`:
 PS C:\T> Get-ChildItem C:\T\Pictures -Filter *.HEIC | .\ConvertTo-Jpeg.ps1
 C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
 C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.HEIC.jpg
+```
+
+### Renaming Files
+
+Sometimes files have the wrong extension.
+To rename JPEG-encoded files that don't have the standard `.jpg` extension, use the `-FixExtensionIfJpeg` switch.
+(The `=>` in the output indicates that the file was renamed vs. converted.)
+
+```PowerShell
+PS C:\T> dir C:\T\Pictures\*.HEIC | .\ConvertTo-Jpeg.ps1 -FixExtensionIfJpeg
+C:\T\Pictures\IMG_1234 (Edited).HEIC => IMG_1234 (Edited).jpg
+C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
 ```
 
 ## Formats
