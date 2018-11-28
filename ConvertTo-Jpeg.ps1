@@ -86,7 +86,7 @@ Process
             $bitmap = AwaitOperation ($decoder.GetSoftwareBitmapAsync()) ([Windows.Graphics.Imaging.SoftwareBitmap])
 
             # Write SoftwareBitmap to output file
-            $outputFileName = $inputFile.Name + ".jpg";
+            $outputFileName = $inputFile.DisplayName + ".jpg";
             $outputFile = AwaitOperation ($inputFolder.CreateFileAsync($outputFileName, [Windows.Storage.CreationCollisionOption]::ReplaceExisting)) ([Windows.Storage.StorageFile])
             $outputTransaction = AwaitOperation ($outputFile.OpenTransactedWriteAsync()) ([Windows.Storage.StorageStreamTransaction])
             $outputStream = $outputTransaction.Stream
