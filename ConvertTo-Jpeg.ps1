@@ -88,8 +88,7 @@ Process
             # Write SoftwareBitmap to output file
             $outputFileName = $inputFile.Name + ".jpg";
             $outputFile = AwaitOperation ($inputFolder.CreateFileAsync($outputFileName, [Windows.Storage.CreationCollisionOption]::ReplaceExisting)) ([Windows.Storage.StorageFile])
-            $outputTransaction = AwaitOperation ($outputFile.OpenTransactedWriteAsync()) ([Windows.Storage.StorageStreamTransaction])
-            $outputStream = $outputTransaction.Stream
+            $outputStream = AwaitOperation ($outputFile.OpenAsync([Windows.Storage.FileAccessMode]::ReadWrite)) ([Windows.Storage.Streams.IRandomAccessStream])
             $encoder = AwaitOperation ([Windows.Graphics.Imaging.BitmapEncoder]::CreateAsync([Windows.Graphics.Imaging.BitmapEncoder]::JpegEncoderId, $outputStream)) ([Windows.Graphics.Imaging.BitmapEncoder])
             $encoder.SetSoftwareBitmap($bitmap)
             $encoder.IsThumbnailGenerated = $true
@@ -108,7 +107,6 @@ Process
             # Clean-up
             if ($inputStream -ne $null) { [System.IDisposable]$inputStream.Dispose() }
             if ($outputStream -ne $null) { [System.IDisposable]$outputStream.Dispose() }
-            if ($outputTransaction -ne $null) { [System.IDisposable]$outputTransaction.Dispose() }
         }
     }
 }
