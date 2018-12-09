@@ -58,13 +58,15 @@ C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
 | Decoder                      | Extensions |
 | ---------------------------- | ---------- |
 | BMP Decoder                  | .BMP .DIB .RLE |
+| CUR Decoder                  | .CUR |
 | DDS Decoder                  | .DDS |
 | DNG Decoder                  | .DNG |
 | GIF Decoder                  | .GIF |
 | ICO Decoder                  | .ICO .ICON |
 | JPEG Decoder                 | .EXIF .JFIF .JPE .JPEG .JPG |
-| Microsoft Camera Raw Decoder | .ARW .HEIC .CRW .DNG .ERF .KDC .MRW .NEF .NRW .ORF .PEF .RAF .RAW .RW2 .RWL .SR2 .SRW |
-| *Microsoft HEIF Decoder*     | .AVCS .HEIC .HEICS .HEIF .HEIFS |
+| Microsoft Camera Raw Decoder | .ARW .CR2 .CRW .DNG .ERF .KDC .MRW .NEF .NRW .ORF .PEF .RAF .RAW .RW2 .RWL .SR2 .SRW |
+| *Microsoft HEIF Decoder*     | .AVCI .AVCS .HEIC .HEICS .HEIF .HEIFS |
+| Microsoft Webp Decoder       | .WEBP |
 | PNG Decoder                  | .PNG |
 | TIFF Decoder                 | .TIF .TIFF |
 | WMPhoto Decoder              | .JXR .WDP |
