@@ -11,6 +11,10 @@ To easily view, edit, or share pictures, it can be handy to convert RAW images t
 `ConvertTo-Jpeg.ps1` is a [PowerShell](https://en.wikipedia.org/wiki/PowerShell) script that uses the [Windows.Graphics.Imaging API](https://docs.microsoft.com/en-us/uwp/api/windows.graphics.imaging) to create a JPEG-encoded copy of each image that is passed to it.
 (The original file is not modified.)
 
+## Related
+
+- [ConvertTo-Heic.ps1](https://github.com/DavidAnson/ConvertTo-Heic): A PowerShell script that converts image files to the efficient HEIC format
+
 ## Examples
 
 ### Converting Files
