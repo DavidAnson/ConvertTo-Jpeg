@@ -70,7 +70,7 @@ C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
 | JPEG Decoder                 | .EXIF .JFIF .JPE .JPEG .JPG |
 | Microsoft Camera Raw Decoder | .ARW .CR2 .CRW .DNG .ERF .KDC .MRW .NEF .NRW .ORF .PEF .RAF .RAW .RW2 .RWL .SR2 .SRW |
 | *Microsoft HEIF Decoder*     | .AVCI .AVCS .HEIC .HEICS .HEIF .HEIFS |
-| Microsoft Webp Decoder       | .WEBP |
+| *Microsoft Webp Decoder*     | .WEBP |
 | PNG Decoder                  | .PNG |
 | TIFF Decoder                 | .TIF .TIFF |
 | WMPhoto Decoder              | .JXR .WDP |
@@ -81,3 +81,8 @@ Windows 10's April 2018 Update (version 1803) added support for [HEIC/HEIF image
 `ConvertTo-Jpeg.ps1` uses the new decoder automatically if it's available.
 To enable the decoder, install the Microsoft [HEIF and HEVC Media Extensions](https://www.microsoft.com/store/productId/9NTLD6MSD8BM) bundle (or else both of [HEVC Video Extensions](https://www.microsoft.com/store/productId/9NMZLZ57R3T7) and [HEIF Image Extensions](https://www.microsoft.com/store/productId/9PMMSR1CGPWG)).
 Once done, the built-in Photos app (and other programs that use the Windows.Graphics.Imaging API) will be able to open HEIC/HEIF images.
+
+## WEBP
+
+If the default support for [WebP](https://en.wikipedia.org/wiki/WebP) images is missing or incomplete, consider installing the Microsoft [Webp Image Extensions](https://www.microsoft.com/en-us/p/webp-image-extensions/9pg2dk419drg).
+As above, the built-in Photos app is a great way to verify support for WEBP images.
