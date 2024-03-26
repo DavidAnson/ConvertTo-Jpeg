@@ -20,10 +20,10 @@ Param (
     $FixExtensionIfJpeg,
 
     [Parameter(
-        HelpMessage = "Remove existing extension of non-JPEG files before adding .jpeg")]
+        HelpMessage = "Remove existing extension of non-JPEG files before adding .jpg")]
     [Switch]
     [Alias("r")]
-    $RemoveExistingExtension
+    $RemoveOriginalExtension
 )
 
 Begin
@@ -93,18 +93,16 @@ Process
             }
             $bitmap = AwaitOperation ($decoder.GetSoftwareBitmapAsync()) ([Windows.Graphics.Imaging.SoftwareBitmap])
             
-            # Determine output file name (whether to keep or remove existing extension)
-            if ($RemoveExistingExtension)
+            # Determine output file name
+            # Get name of original file, including extension
+            $fileName = $inputFile.Name
+            if ($RemoveOriginalExtension)
             {
-                # Name new file same as old file, except change extension to jpg
-                $extension = $inputFile.FileType
-                $outputFileName = $inputFile.Name -replace ($extension + "$"), ".jpg"
+                # If removing original extension, get the original file name without the extension
+                $fileName = $inputFile.DisplayName 
             }
-            else
-            {
-                # Name new file same as old file, but add .jpg to the end
-                $outputFileName = $inputFile.Name + ".jpg";
-            }
+            # Add .jpg to the file name
+            $outputFileName = $fileName + ".jpg"
 
             # Write SoftwareBitmap to output file
             $outputFile = AwaitOperation ($inputFolder.CreateFileAsync($outputFileName, [Windows.Storage.CreationCollisionOption]::ReplaceExisting)) ([Windows.Storage.StorageFile])

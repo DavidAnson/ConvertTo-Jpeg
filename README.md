@@ -48,9 +48,9 @@ C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.HEIC.jpg
 ### Renaming Files
 
 Sometimes files have the wrong extension.
-To rename JPEG-encoded files that don't have the standard `.jpg` extension, use the `-FixExtensionIfJpeg` switch (alias `-f`).
-
-The `=>` in the output indicates that the file was renamed vs. converted.
+To rename JPEG-encoded files that don't have the standard `.jpg` extension, use the `-FixExtensionIfJpeg` 
+switch (alias `-f`). 
+(The `=>` in the output indicates that the file was renamed vs. converted.)
 
 ```PowerShell
 PS C:\T> dir C:\T\Pictures\*.HEIC | .\ConvertTo-Jpeg.ps1 -FixExtensionIfJpeg
@@ -60,12 +60,10 @@ C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
 
 ### Removing existing extensions
 
-If you want to remove the existing extension of a file, use the `-RemoveExistingExtension` switch (alias `-r`).
-
-This will not touch the original file, it will only change the output.
+To remove the existing extension of a file, use the `-RemoveOriginalExtension` switch (alias `-r`).
 
 ```PowerShell
-PS C:\T> dir C:\T\Pictures\*.HEIC | .\ConvertTo-Jpeg.ps1 -RemoveExistingExtension
+PS C:\T> dir C:\T\Pictures\*.HEIC | .\ConvertTo-Jpeg.ps1 -RemoveOriginalExtension
 C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.jpg
 C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.jpg
 ```
