@@ -23,16 +23,16 @@ Passing parameters:
 
 ```PowerShell
 PS C:\T> .\ConvertTo-Jpeg.ps1 C:\T\Pictures\IMG_1234.HEIC C:\T\Pictures\IMG_5678.HEIC
-C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
-C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.HEIC.jpg
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Pictures\IMG_1234.HEIC.jpg
+C:\T\Pictures\IMG_5678.HEIC -> C:\T\Pictures\IMG_5678.HEIC.jpg
 ```
 
 Pipeline via `dir`:
 
 ```PowerShell
 PS C:\T> dir C:\T\Pictures | .\ConvertTo-Jpeg.ps1
-C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
-C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.HEIC.jpg
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Pictures\IMG_1234.HEIC.jpg
+C:\T\Pictures\IMG_5678.HEIC -> C:\T\Pictures\IMG_5678.HEIC.jpg
 C:\T\Pictures\Kitten.jpg [Already JPEG]
 C:\T\Pictures\Notes.txt [Unsupported]
 ```
@@ -41,9 +41,40 @@ Pipeline via `Get-ChildItem`:
 
 ```PowerShell
 PS C:\T> Get-ChildItem C:\T\Pictures -Filter *.HEIC | .\ConvertTo-Jpeg.ps1
-C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
-C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.HEIC.jpg
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Pictures\IMG_1234.HEIC.jpg
+C:\T\Pictures\IMG_5678.HEIC -> C:\T\Pictures\IMG_5678.HEIC.jpg
 ```
+
+Dialog via `InteractiveMode` (`-t`) flag:
+
+```PowerShell
+PS C:\T> .\ConvertTo-Jpeg.ps1 -t
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Pictures\IMG_1234.HEIC.jpg
+C:\T\Pictures\IMG_5678.HEIC -> C:\T\Pictures\IMG_5678.HEIC.jpg
+```
+
+
+### Output Folder
+
+Choosing an output folder path for converted files.
+If no output path is supplied, each converted file will be placed in the same
+folder as the original.
+If an output path is supplied, it will be included in the file conversion log.
+
+Paramater via `OutputFolderPath` (`-o`) flag:
+
+```PowerShell
+PS C:\T> .\ConvertTo-Jpeg.ps1 -o C:\T\Documents C:\T\Pictures\IMG_1234.HEIC
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Documents\IMG_1234.HEIC.jpg
+```
+
+Dialog via `InteractiveMode` (`-t`) flag:
+
+```PowerShell
+PS C:\T> .\ConvertTo-Jpeg.ps1 -t C:\T\Pictures\IMG_1234.HEIC
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Documents\IMG_1234.HEIC.jpg
+```
+
 
 ### Renaming Files
 
@@ -54,9 +85,22 @@ switch (alias `-f`).
 
 ```PowerShell
 PS C:\T> dir C:\T\Pictures\*.HEIC | .\ConvertTo-Jpeg.ps1 -FixExtensionIfJpeg
-C:\T\Pictures\IMG_1234 (Edited).HEIC => IMG_1234 (Edited).jpg
-C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.HEIC.jpg
+C:\T\Pictures\IMG_ABCD.HEIC => C:\T\Pictures\IMG_ABCD.jpg
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Pictures\IMG_1234.HEIC.jpg
 ```
+
+### Output Unconverted Files
+
+Also outputs existing files that don't require conversion but are images if an output path is specified by `-o` flag or InteractiveMode (`-t`).
+Flag is `-OutputUnconverted` (`-u`.)
+This includes existing JPEG-encoded files.
+
+```PowerShell
+PS C:\T> .\ConvertTo-Jpeg.ps1 -u -o C:\T\Documents C:\T\Pictures\IMG_1234.HEIC C:\T\Pictures\IMG_ABCD.jpg
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Documents\IMG_1234.HEIC.jpg
+C:\T\Pictures\IMG_ABCD.jpg => C:\T\Documents\IMG_5678.jpg
+```
+
 
 ### Removing existing extensions
 
@@ -64,8 +108,8 @@ To remove the existing extension of a file, use the `-RemoveOriginalExtension` s
 
 ```PowerShell
 PS C:\T> dir C:\T\Pictures\*.HEIC | .\ConvertTo-Jpeg.ps1 -RemoveOriginalExtension
-C:\T\Pictures\IMG_1234.HEIC -> IMG_1234.jpg
-C:\T\Pictures\IMG_5678.HEIC -> IMG_5678.jpg
+C:\T\Pictures\IMG_1234.HEIC -> C:\T\Pictures\IMG_1234.jpg
+C:\T\Pictures\IMG_5678.HEIC -> C:\T\Pictures\IMG_5678.jpg
 ```
 
 ## Formats
